@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>技术支持 · 聚连Tool</title>
+  <meta name="description" content="聚连Tool 技术支持与常见问题。">
+  <style>
+    :root {
+      --fg: #1a1a1a;
+      --fg-muted: #6b6b6b;
+      --bg: #ffffff;
+      --border: #e5e5e5;
+      --accent: #1976d2;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --fg: #e8e8e8;
+        --fg-muted: #9a9a9a;
+        --bg: #121212;
+        --border: #2a2a2a;
+        --accent: #64b5f6;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 0 20px 60px;
+      line-height: 1.8;
+      color: var(--fg);
+      background: var(--bg);
+    }
+    h1, h2, h3 { line-height: 1.35; }
+    h1 { font-size: 28px; margin-bottom: 4px; }
+    h2 { font-size: 19px; margin-top: 32px; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+    h3 { font-size: 16px; margin-top: 20px; margin-bottom: 4px; }
+    p, li { margin: 6px 0; }
+    ul, ol { padding-left: 22px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .meta { color: var(--fg-muted); font-size: 14px; margin-bottom: 32px; }
+    .lang-switch { font-size: 14px; color: var(--fg-muted); margin-bottom: 16px; }
+    .lang-switch a { color: var(--fg-muted); }
+    .service { background: rgba(0,0,0,.03); border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 0 6px 6px 0; margin: 12px 0; }
+    @media (prefers-color-scheme: dark) {
+      .service { background: rgba(255,255,255,.05); }
+    }
+    .service h3 { margin-top: 0; }
+    code { background: rgba(0,0,0,.05); padding: 1px 6px; border-radius: 4px; font-size: 14px; }
+    @media (prefers-color-scheme: dark) {
+      code { background: rgba(255,255,255,.08); }
+    }
+  </style>
+</head>
+<body>
+  <p class="lang-switch"><a href="support.html">English</a></p>
+
+  <h1>技术支持</h1>
+  <p class="meta"><strong>聚连Tool</strong> · 自托管服务统一客户端 · (English: ConfluoTool)</p>
+
+  <p><strong>聚连Tool</strong> 是自托管服务的统一客户端。你自备服务器，app 与之通信。如果遇到问题，本页应该能帮你解决。</p>
+
+  <h2>快速跳转</h2>
+  <ul>
+    <li><a href="privacy.zh-CN.html">隐私政策</a></li>
+    <li>各子系统的<a href="#connection">连接指南</a></li>
+    <li><a href="#faq">常见问题</a></li>
+    <li><a href="#contact">联系我们</a></li>
+  </ul>
+
+  <h2 id="connection">连接指南</h2>
+
+  <div class="service">
+    <h3>音乐（Navidrome / Subsonic）</h3>
+    <p>兼容所有 Subsonic 协议的服务器：Navidrome、Funkwhale、Airsonic、Gonic 等。</p>
+    <ol>
+      <li>在 Navidrome 网页端：创建一个用户（或用现有用户），记下密码。</li>
+      <li>在 app 内：<em>音乐</em> tab → <em>添加音乐库</em> → 填服务器地址（如 <code>https://music.example.com</code>）、用户名、密码。</li>
+      <li>app 验证通过后开始索引你的曲库。</li>
+    </ol>
+    <p><strong>常见坑：</strong>服务器地址必须能从手机网络访问；自签名证书需要在 iOS 设置里手动信任；Navidrome 路径前缀是 <code>/rest/</code>，app 会自动处理。</p>
+  </div>
+
+  <div class="service">
+    <h3>视频（Emby）</h3>
+    <ol>
+      <li>在 Emby：<em>控制台 → 用户 → 新建用户</em>（或用现有账户）。</li>
+      <li>在 app 内：<em>视频</em> tab → 填服务器地址、用户名、密码。</li>
+      <li>服务器返回访问令牌后登录完成。</li>
+    </ol>
+    <p><strong>常见坑：</strong>需要 Emby Server 4.7+；反向代理必须转发 <code>X-Emby-Authorization</code> 头；强烈建议使用 HTTPS。</p>
+  </div>
+
+  <div class="service">
+    <h3>笔记（Memos）</h3>
+    <ol>
+      <li>在 Memos 网页端：<em>设置 → 访问令牌 → 创建</em>。</li>
+      <li>复制令牌。</li>
+      <li>在 app 内：<em>笔记</em> tab → 粘贴服务器地址和令牌。</li>
+    </ol>
+    <p><strong>常见坑：</strong>app 通过 ConnectRPC 接口对接 Memos 0.18+；自托管旧版本请先升级。</p>
+  </div>
+
+  <div class="service">
+    <h3>财务（Firefly III）</h3>
+    <ol>
+      <li>在 Firefly：<em>个人资料 → OAuth → 个人访问令牌 → 创建令牌</em>。权限选：<code>readonly</code>（只读）或完整权限（读写）—— app 需要写权限来增改交易。</li>
+      <li>在 app 内：<em>财务</em> tab → 填服务器地址，粘贴令牌。</li>
+    </ol>
+    <p><strong>常见坑：</strong>部分部署的 API 路径是 <code>https://your-firefly.com/api/v1</code>，有的就是 <code>https://your-firefly.com</code>——app 都接受。</p>
+  </div>
+
+  <h2 id="faq">常见问题</h2>
+
+  <h3>app 除了我的服务器，还会把数据发到别处吗？</h3>
+  <p>不会。详见<a href="privacy.zh-CN.html">隐私政策</a>。</p>
+
+  <h3>有 Android 版吗？</h3>
+  <p>暂时没有。iOS 是当前主平台。</p>
+
+  <h3>能添加多个后端吗？（比如两台 Navidrome）</h3>
+  <p>可以。音乐可以添加多个音乐库，指向不同服务器。侧边栏入口仍显示"音乐 / Navidrome"，因为这是产品族。</p>
+
+  <h3>后台播放不工作 / CarPlay 连不上</h3>
+  <p>确认 app 允许后台运行（<em>iOS 设置 → 聚连Tool → 后台 App 刷新</em>）。CarPlay 需要车机支持该协议，且 iPhone 首次连接时需解锁。</p>
+
+  <h3>为什么让我订阅？</h3>
+  <p>免费版覆盖核心功能。订阅解锁高级便利功能（离线下载、多库同步等）。具体差异见设置 → 订阅。不订阅也能一直用。</p>
+
+  <h3>想提建议 / 反馈 bug</h3>
+  <p>去 GitHub 提 issue（链接见下方）。带屏幕录制和你服务器版本的 bug 报告修得最快。</p>
+
+  <h2 id="contact">联系我们</h2>
+  <ul>
+    <li>GitHub issues：<a href="https://github.com/zhangxyiang/ConfluoTool/issues" target="_blank" rel="noopener">github.com/zhangxyiang/ConfluoTool/issues</a></li>
+    <li>邮箱：<a href="mailto:zhangxyiang@126.com">zhangxyiang@126.com</a>（发布前请替换为真实地址）</li>
+  </ul>
+</body>
+</html>

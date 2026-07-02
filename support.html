@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support · ConfluoTool</title>
+  <meta name="description" content="Support and FAQ for ConfluoTool (Chinese: 聚连Tool) — a private client for self-hosted services.">
+  <style>
+    :root {
+      --fg: #1a1a1a;
+      --fg-muted: #6b6b6b;
+      --bg: #ffffff;
+      --border: #e5e5e5;
+      --accent: #1976d2;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --fg: #e8e8e8;
+        --fg-muted: #9a9a9a;
+        --bg: #121212;
+        --border: #2a2a2a;
+        --accent: #64b5f6;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 0 20px 60px;
+      line-height: 1.7;
+      color: var(--fg);
+      background: var(--bg);
+    }
+    h1, h2, h3 { line-height: 1.3; }
+    h1 { font-size: 28px; margin-bottom: 4px; }
+    h2 { font-size: 19px; margin-top: 32px; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+    h3 { font-size: 16px; margin-top: 20px; margin-bottom: 4px; }
+    p, li { margin: 6px 0; }
+    ul { padding-left: 22px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .meta { color: var(--fg-muted); font-size: 14px; margin-bottom: 32px; }
+    .lang-switch { font-size: 14px; color: var(--fg-muted); margin-bottom: 16px; }
+    .lang-switch a { color: var(--fg-muted); }
+    .service { background: rgba(0,0,0,.03); border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 0 6px 6px 0; margin: 12px 0; }
+    @media (prefers-color-scheme: dark) {
+      .service { background: rgba(255,255,255,.05); }
+    }
+    .service h3 { margin-top: 0; }
+    code { background: rgba(0,0,0,.05); padding: 1px 6px; border-radius: 4px; font-size: 14px; }
+    @media (prefers-color-scheme: dark) {
+      code { background: rgba(255,255,255,.08); }
+    }
+  </style>
+</head>
+<body>
+  <p class="lang-switch"><a href="support.zh-CN.html">中文</a></p>
+
+  <h1>Support</h1>
+  <p class="meta"><strong>ConfluoTool</strong> · 自托管服务的统一客户端 · (Chinese: 聚连Tool)</p>
+
+  <p><strong>ConfluoTool</strong> is a private client for self-hosted services. You bring your own server; the app talks to it. If something isn't working, this page should help you get unblocked.</p>
+
+  <h2>Quick links</h2>
+  <ul>
+    <li><a href="privacy.html">Privacy Policy</a></li>
+    <li><a href="#connection">Connection guides</a> for each subsystem</li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <h2 id="connection">Connection guides</h2>
+
+  <div class="service">
+    <h3>Music (Navidrome / Subsonic)</h3>
+    <p>Works with any Subsonic-compatible server: Navidrome, Funkwhale, Airsonic, Gonic, etc.</p>
+    <ol>
+      <li>In Navidrome web UI: create a user (or use an existing one) and note the password.</li>
+      <li>In the app: <em>Music</em> tab → <em>Add Library</em> → enter your server URL (e.g. <code>https://music.example.com</code>), username, and password.</li>
+      <li>The app will validate the connection and start indexing your library.</li>
+    </ol>
+    <p><strong>Common gotchas:</strong> Server URL must be reachable from your phone's network; self-signed certs require a manual trust in iOS Settings; path prefix is <code>/rest/</code> on Navidrome but the app handles this automatically.</p>
+  </div>
+
+  <div class="service">
+    <h3>Video (Emby)</h3>
+    <ol>
+      <li>In Emby: <em>Dashboard → Users → New User</em> (or use your existing account).</li>
+      <li>In the app: <em>Video</em> tab → enter server URL, username, and password.</li>
+      <li>Sign-in completes once the server returns an access token.</li>
+    </ol>
+    <p><strong>Common gotchas:</strong> Emby Server 4.7+ required; reverse proxy must forward the <code>X-Emby-Authorization</code> header; HTTPS strongly recommended.</p>
+  </div>
+
+  <div class="service">
+    <h3>Notes (Memos)</h3>
+    <ol>
+      <li>In Memos web UI: <em>Settings → Access Tokens → Create</em>.</li>
+      <li>Copy the token.</li>
+      <li>In the app: <em>Notes</em> tab → paste server URL and token.</li>
+    </ol>
+    <p><strong>Common gotchas:</strong> The app talks to Memos 0.18+ via the ConnectRPC interface; if you self-host an older version, please upgrade.</p>
+  </div>
+
+  <div class="service">
+    <h3>Finance (Firefly III)</h3>
+    <ol>
+      <li>In Firefly: <em>Profile → OAuth → Personal Access Tokens → Create Token</em>. Choose scope: <code>readonly</code> (read-only) or full (read+write) — the app needs write access to add/edit transactions.</li>
+      <li>In the app: <em>Finance</em> tab → enter server URL and paste the token.</li>
+    </ol>
+    <p><strong>Common gotchas:</strong> Token URL is <code>https://your-firefly.com/api/v1</code> in some installations and bare <code>https://your-firefly.com</code> in others — the app accepts both.</p>
+  </div>
+
+  <h2 id="faq">FAQ</h2>
+
+  <h3>Does the app send my data anywhere besides my server?</h3>
+  <p>No. See the <a href="privacy.html">Privacy Policy</a> for details.</p>
+
+  <h3>Is there an Android version?</h3>
+  <p>Not yet. iOS is the primary target.</p>
+
+  <h3>Can I self-host multiple backends (e.g., two Navidrome servers)?</h3>
+  <p>Yes — for Music you can add multiple libraries pointing to different servers. The sidebar entry stays "Music / Navidrome" because that's the product family.</p>
+
+  <h3>Background audio stopped working / CarPlay won't connect.</h3>
+  <p>Make sure the app is allowed to run in background (<em>iOS Settings → 聚连Tool → Background App Refresh</em>). For CarPlay, ensure the head unit supports the protocol and the iPhone is unlocked on first use.</p>
+
+  <h3>Why is the app asking me to subscribe?</h3>
+  <p>Free tier covers the core features. Subscriptions unlock advanced conveniences (e.g., offline downloads, multi-library sync). See Settings → Subscription for the exact list. You can use the app indefinitely without subscribing.</p>
+
+  <h3>I have a feature request / found a bug.</h3>
+  <p>Open an issue on GitHub (link below). Bug reports with a screen recording and your server version get fixed fastest.</p>
+
+  <h2 id="contact">Contact</h2>
+  <ul>
+    <li>GitHub issues: <a href="https://github.com/zhangxyiang/ConfluoTool/issues" target="_blank" rel="noopener">github.com/zhangxyiang/ConfluoTool/issues</a></li>
+    <li>Email: <a href="mailto:zhangxyiang@126.com">zhangxyiang@126.com</a> (replace with your real address before publishing)</li>
+  </ul>
+</body>
+</html>
